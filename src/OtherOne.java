@@ -3,13 +3,16 @@ import java.util.Scanner;
 
 public class OtherOne {
     public static void main(String[] args) {
+
+        //Arrays
         String[][] board = new String[3][3];
+
+        //Variables
         String player;
         int row;
         int col;
         int counter = 0;
         String winner = "A";
-
 
         //Fields
         Scanner in = new Scanner( System.in, Charset.defaultCharset() );
@@ -28,7 +31,10 @@ public class OtherOne {
                 System.out.println( "--------------" );
         }
 
+        //When somebody wins or there is a tie, the loop will stop
         while(winner.equals("A")) {
+
+            //Part of the counter that controls the player
             if (counter % 2 == 0) {
                 player = "X";
             } else {
@@ -44,6 +50,7 @@ public class OtherOne {
                     System.out.println( "Invalid input, please try again." );
                     System.out.println( "*****************************************" );
                 }
+                //While loop so that user doesn't enter incorrect input
             } while (row >2);
 
             do {
@@ -55,17 +62,20 @@ public class OtherOne {
                     System.out.println( "Invalid input, please try again." );
                     System.out.println( "*****************************************" );
                 }
+                //While loop so that user doesn't enter incorrect input
             } while (col >2);
 
-            //Checks first if the space you entered is not taken if so decreases the counter so the player is still
+            //Checks first if the space you entered is not taken if so decreases the counter so the program doesn't mix up the player's token
             if (!board[row][col].equals( " " )) {
                 System.out.println("++++++++++++++++++++++++++++++");
                 System.out.println("Already taken space");
                 System.out.println("++++++++++++++++++++++++++++++");
                 counter -= 1;
             } else {
+                //If space is available then it marks it as occupied
                 board[row][col] = player;
 
+                //Print board
                 System.out.println( "Col\t  0|1|2" );
                 System.out.println( "--------------" );
                 for (int x = 0; x < board.length; x++) {
