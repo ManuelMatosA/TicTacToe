@@ -9,10 +9,12 @@ public class OtherOne {
 
         //Variables
         String player;
-        int row;
-        int col;
+        String row;
+        String col;
         int counter = 0;
         String winner = "A";
+        int rowConverted;
+        int colConverted;
 
         //Fields
         Scanner in = new Scanner( System.in, Charset.defaultCharset() );
@@ -44,36 +46,39 @@ public class OtherOne {
             do {
                 System.out.println( "Where would you like to move your piece?  Enter the row" );
                 System.out.print("#");
-                row = in.nextInt();
-                if (row > 2) {
+                row = in.nextLine();
+                rowConverted = fromIntToString(row);
+                if (!row.matches( "0|1|2" )) {
                     System.out.println( "*****************************************" );
                     System.out.println( "Invalid input, please try again." );
                     System.out.println( "*****************************************" );
                 }
                 //While loop so that user doesn't enter incorrect input
-            } while (row >2);
+            } while (!row.matches( "0|1|2" ));
+
 
             do {
                 System.out.println( "Where would you like to move your piece?  Enter the column" );
                 System.out.print("#");
-                col = in.nextInt();
-                if (col > 2) {
+                col = in.nextLine();
+                colConverted = fromIntToString(col);
+                if (!col.matches( "0|1|2" )) {
                     System.out.println( "*****************************************" );
                     System.out.println( "Invalid input, please try again." );
                     System.out.println( "*****************************************" );
                 }
                 //While loop so that user doesn't enter incorrect input
-            } while (col >2);
+            } while (!col.matches( "0|1|2" ));
 
             //Checks first if the space you entered is not taken if so decreases the counter so the program doesn't mix up the player's token
-            if (!board[row][col].equals( " " )) {
+            if (!board[rowConverted][colConverted].equals( " " )) {
                 System.out.println("++++++++++++++++++++++++++++++");
                 System.out.println("Already taken space");
                 System.out.println("++++++++++++++++++++++++++++++");
                 counter -= 1;
             } else {
                 //If space is available then it marks it as occupied
-                board[row][col] = player;
+                board[rowConverted][colConverted] = player;
 
                 //Print board
                 System.out.println( "Col\t  0|1|2" );
@@ -138,16 +143,29 @@ public class OtherOne {
             //Checks for a tie or if nobody won
             for ( int x = 0; x < board.length; x++ ) {
                 for ( int y = 0; y < board[ x ].length; y++ ) {
-                    if (x== 2 &&  y==2) {
-                        if (!board[x][y].equals( " " )) {
+                    if (!board[x][y].equals( " " )) {
+                        if (x== 2 &&  y==2) {
                             winner = "Tie";
                             System.out.println( "Nobody won. Tie." );
                         }
+                    } else {
+                        break;
                     }
                 }
             }
             //This counter is to determine whether or not the player will be X or O in association with the first if statement above
             counter++;
         }
+    }
+    private static int fromIntToString(String input) {
+        int array = 50;
+        if (input.equals("0")) {
+            array = 0;
+        } else if (input.equals("1")) {
+            array = 1;
+        } else if (input.equals("2")) {
+            array = 2;
+        }
+        return array;
     }
 }
